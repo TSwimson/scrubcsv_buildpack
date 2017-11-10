@@ -30,8 +30,9 @@ mkdir -p $BUILD_DIR/vendor
 cd $CACHE_DIR
 gunzip -f $FILE_NAME
 tar -xvf $TAR_FILE_NAME
-mv $ARCHIVE_NAME $BUILD_DIR/vendor/scrubcsv
-chmod +x $BUILD_DIR/vendor/scrubcsv
+mkdir -p $BUILD_DIR/vendor/scrubcsv
+mv $ARCHIVE_NAME $BUILD_DIR/vendor/scrubcsv/scrubcsv
+chmod +x $BUILD_DIR/vendor/scrubcsv/scrubcsv
 
 echo "-----> exporting PATH and LIBRARY_PATH"
 PROFILE_PATH="$BUILD_DIR/.profile.d/scrubcsv.sh"
