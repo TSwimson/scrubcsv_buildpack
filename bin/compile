@@ -1,0 +1,39 @@
+#!/bin/bash
+
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+# config
+VERSION="0.1.2"
+ARCHIVE_NAME=scrubcsv-${VERSION}-linux-x86_64
+FILE_NAME=${ARCHIVE_NAME}.tar.gz
+TAR_FILE_NAME=${ARCHIVE_NAME}.tar
+
+# Buildpack URL
+BUILDPACK_SCRUBCSV_PACKAGE=https://github.com/TSwimson/scrubcsv-releases/raw/master/${FILE_NAME}
+
+mkdir -p $CACHE_DIR
+if ! [ -e $CACHE_DIR/$FILE_NAME ]; then
+  echo "-----> Fetching Scrubcsv ${VERSION} binaries at ${BUILDPACK_SCRUBCSV_PACKAGE}"
+  curl $BUILDPACK_SCRUBCSV_PACKAGE --verbose -L -s -o $CACHE_DIR/$FILE_NAME
+fi
+
+echo "-----> Extracting Scrubcsv ${VERSION} binaries to ${BUILD_DIR}/vendor/scrubcsv"
+mkdir -p $BUILD_DIR/vendor
+cd $CACHE_DIR
+gunzip $FILE_NAME
+tar -xvf $TAR_FILE_NAME
+mv $ARCHIVE_NAME $BUILD_DIR/vendor/scrubcsv
+chmod +x $BUILD_DIR/vendor/scrubcsv
+
+echo "-----> exporting PATH and LIBRARY_PATH"
+PROFILE_PATH="$BUILD_DIR/.profile.d/scrubcsv.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:/app/vendor/scrubcsv"' >> $PROFILE_PATH
