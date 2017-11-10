@@ -28,7 +28,7 @@ fi
 echo "-----> Extracting Scrubcsv ${VERSION} binaries to ${BUILD_DIR}/vendor/scrubcsv"
 mkdir -p $BUILD_DIR/vendor
 cd $CACHE_DIR
-gunzip $FILE_NAME
+gunzip -f $FILE_NAME
 tar -xvf $TAR_FILE_NAME
 mv $ARCHIVE_NAME $BUILD_DIR/vendor/scrubcsv
 chmod +x $BUILD_DIR/vendor/scrubcsv
