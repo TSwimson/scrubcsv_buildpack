@@ -17,7 +17,7 @@ FILE_NAME=${ARCHIVE_NAME}.tar.gz
 TAR_FILE_NAME=${ARCHIVE_NAME}.tar
 
 # Buildpack URL
-BUILDPACK_SCRUBCSV_PACKAGE=https://github.com/TSwimson/scrubcsv-releases/raw/master/${FILE_NAME}
+BUILDPACK_SCRUBCSV_PACKAGE=https://github.com/jetinsight/scrubcsv-releases/raw/master/${FILE_NAME}
 
 mkdir -p $CACHE_DIR
 if ! [ -e $CACHE_DIR/$FILE_NAME ]; then
